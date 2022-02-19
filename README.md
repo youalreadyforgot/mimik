@@ -1,4 +1,4 @@
 # Records input and creates python script to mimic it
-## Requires
+## Requires:
 ### pyautogui
 ### pynput
