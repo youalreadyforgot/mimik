@@ -16,6 +16,3 @@ class Data():
 
     def get_time(self):
         return self.time
-
-
-    

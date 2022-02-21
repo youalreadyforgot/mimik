@@ -1,29 +1,9 @@
-from pynput.mouse import Button, Controller, Listener
-from pynput import mouse
+#from pynput.mouse import Button, Controller, Listener
+#from pynput import mouse
+from pynput import keyboard
 import time
-#import data.py
+import data_class
 
-class Data():
-    x_cord = 0
-    y_cord = 0
-    time = 0
-
-    def __init__(self,x_cord, y_cord, time):
-        self.x_cord = x_cord
-        self.y_cord = y_cord
-        self.time = time
-    
-    def get_x(self):
-        return self.x_cord
-
-    def get_y(self):
-        return self.y_cord
-
-    def get_time(self):
-        return self.time
-
-
-    
 def GetTimeMinutes(str):
     raw = str.split(',')
     return raw[3]
@@ -31,8 +11,6 @@ def GetTimeMinutes(str):
 def GetTimeSeconds(str):
     raw = str.split(',')
     return raw[4]
-
-
 
 
 raw_time = time.strftime("0,0,0,%M,%S", time.localtime())
@@ -70,9 +48,24 @@ def on_click(x, y, button, pressed):
         time_spend = ParseTime(data, start_time_minutes, start_time_seconds)
         start_time_minutes = GetTimeMinutes(data)
         start_time_seconds = GetTimeSeconds(data)
-        obj = Data(x, y, time_spend)
+        obj = data_class.Data(x, y, time_spend)
         event_data.append(obj)
         print_objects()
+
+def on_press(key):
+    try:
+        print('alphanumeric key {0} pressed'.format(
+            key.char))
+    except AttributeError:
+        print('special key {0} pressed'.format(
+            key))
+
+def on_release(key):
+    print('{0} released'.format(
+        key))
+    if key == keyboard.Key.esc:
+        # Stop listener
+        return False
 
 
 def print_objects():
@@ -82,7 +75,8 @@ def print_objects():
     
     print("\n")
 
-
+def return_data():
+    return event_data
 
 '''    
 raw_data = "1698,380,Button.left,25,38"
@@ -93,7 +87,8 @@ print(ParseY(raw_data))
 print(ParseTime(raw_data, current_time_mintues, current_time_seconds))
 '''
 
-with Listener(on_click=on_click) as listener:
+'''
+with Listener(on_click=on_click, on_press=on_press, on_release=on_release) as listener:
     listener.join()
-
+'''
 

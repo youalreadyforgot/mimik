@@ -1,2 +1,3 @@
-f = open("mouse_log.txt", "w")
-f.write("Test")
+x = 5
+y = 6
+print(x,y)
