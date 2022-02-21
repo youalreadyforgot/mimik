@@ -36,14 +36,12 @@ def GetTimeSeconds(str):
 
 
 raw_time = time.strftime("0,0,0,%M,%S", time.localtime())
-#print(raw_time)
 start_time_minutes = GetTimeMinutes(raw_time)
 start_time_seconds = GetTimeSeconds(raw_time)
 event_data = []
 
 def ParseX(str):
     raw = str.split(',')
-    print(str.split(','))
     x = raw[0]
     return x
 
@@ -64,6 +62,8 @@ def ParseTime(str,last_time_minutes, last_time_seconds):
 
 def on_click(x, y, button, pressed):
     if pressed:
+        global start_time_seconds
+        global start_time_minutes
         data = '{0}, {1}, {2},'.format(x, y, button) + time.strftime("%M,%S", time.localtime())
         x = ParseX(data)
         y = ParseY(data)
@@ -76,9 +76,11 @@ def on_click(x, y, button, pressed):
 
 
 def print_objects():
-    print(start_time_minutes + "," + start_time_seconds)
+    print("Start time minutes and seconds:" + str(start_time_minutes) + "," + str(start_time_seconds))
     for i in event_data:
-        print(i.get_x, i.get_y, i.get_time + "\n")
+        print(i.get_x(), i.get_y(), i.get_time())
+    
+    print("\n")
 
 
 
